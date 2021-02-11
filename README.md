@@ -43,13 +43,17 @@ export default () => {
 | params | type | default | default |
 | --- | --- | --- | --- |
 | verbose | `boolean` | `true` | Whether to output the compressed result in the console |
-| filter | `RegExp or (file: string) => boolean` | - | Specify which resources are not compressed |
+| filter | `RegExp or (file: string) => boolean` | `DefaultFilter` | Specify which resources are not compressed |
 | disable | `boolean` | `false` | Whether to disable |
 | threshold | `number` | - | It will be compressed if the volume is larger than threshold, the unit is kb |
 | algorithm | `string` | `gzip` | Compression algorithm, optional ['gzip','brotliCompress' ,'deflate','deflateRaw'] |
 | ext | `string` | `.gz` | Suffix of the generated compressed package |
 | compressionOptions | `object` | - | The parameters of the corresponding compression algorithm |
 | deleteOriginFile | `boolean` | - | Whether to delete source files after compression |
+
+**DefaultFilter**
+
+`/\.(js|mjs|json|css|html)$/i`
 
 ## Example
 
