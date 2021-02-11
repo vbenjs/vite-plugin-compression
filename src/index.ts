@@ -28,7 +28,7 @@ export default (options: VitePluginCompression = {}): Plugin => {
     verbose = true,
     algorithm = 'gzip',
     ext = '.gz',
-    threshold = 2050,
+    threshold = 1025,
     compressionOptions = {},
     deleteOriginFile = false,
   } = options;
