@@ -14,7 +14,7 @@
     "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "yarn build",
-    "log": "conventional-changelog -p angular -i CHANGELOG.md ",
+    "log": "conventional-changelog -p angular -i CHANGELOG.md -r -s 0 ",
     "example:dev": "npm -C example run serve",
     "example:build": "npm -C example run build"
   },
@@ -43,14 +43,14 @@
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/debug": "^4.1.5",
-    "@types/fs-extra": "^9.0.6",
-    "@types/node": "^14.14.25",
+    "@types/fs-extra": "^9.0.7",
+    "@types/node": "^14.14.31",
     "conventional-changelog-cli": "^2.1.1",
     "ini": "^2.0.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "tsup": "^3.12.1",
     "typescript": "^4.1.5",
-    "vite": "^2.0.0-beta.68"
+    "vite": "^2.0.2"
   }
 }
