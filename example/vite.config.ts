@@ -8,6 +8,16 @@ export default (): UserConfigExport => {
     build: {
       assetsInlineLimit: 0,
     },
-    plugins: [vue(), jsx(), viteCompression()],
+    plugins: [
+      vue(),
+      jsx(),
+      // gizp
+      viteCompression(),
+      // br
+      viteCompression({
+        ext: '.br',
+        algorithm: 'brotliCompress',
+      }),
+    ],
   };
 };
