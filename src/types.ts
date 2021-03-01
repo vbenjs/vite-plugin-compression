@@ -11,7 +11,7 @@ export interface VitePluginCompression {
   verbose?: boolean;
   /**
    * Minimum file size before compression is used.
-   * @default 2050
+   * @default 1025
    */
   threshold?: number;
   /**

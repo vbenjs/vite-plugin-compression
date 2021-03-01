@@ -38,19 +38,19 @@
     "fs-extra": "^9.1.0"
   },
   "peerDependencies": {
-    "vite": ">=2.0.0-beta.64"
+    "vite": ">=2.0.0"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/debug": "^4.1.5",
-    "@types/fs-extra": "^9.0.7",
+    "@types/fs-extra": "^9.0.8",
     "@types/node": "^14.14.31",
     "conventional-changelog-cli": "^2.1.1",
     "ini": "^2.0.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "tsup": "^3.12.1",
-    "typescript": "^4.1.5",
-    "vite": "^2.0.2"
+    "tsup": "^4.6.0",
+    "typescript": "^4.2.2",
+    "vite": "^2.0.4"
   }
 }

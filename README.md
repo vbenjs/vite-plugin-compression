@@ -12,7 +12,7 @@ Since [vite-plugin-compress](https://github.com/alloc/vite-plugin-compress) does
 
 **node version:** >=12.0.0
 
-**vite version:** >=2.0.0-beta.68
+**vite version:** >=2.0.0
 
 ```
 yarn add vite-plugin-compression -D
@@ -45,7 +45,7 @@ export default () => {
 | verbose | `boolean` | `true` | Whether to output the compressed result in the console |
 | filter | `RegExp or (file: string) => boolean` | `DefaultFilter` | Specify which resources are not compressed |
 | disable | `boolean` | `false` | Whether to disable |
-| threshold | `number` | - | It will be compressed if the volume is larger than threshold, the unit is kb |
+| threshold | `number` | `1025` | It will be compressed if the volume is larger than threshold, the unit is b |
 | algorithm | `string` | `gzip` | Compression algorithm, optional ['gzip','brotliCompress' ,'deflate','deflateRaw'] |
 | ext | `string` | `.gz` | Suffix of the generated compressed package |
 | compressionOptions | `object` | - | The parameters of the corresponding compression algorithm |
