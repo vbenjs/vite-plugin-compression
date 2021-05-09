@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-compression",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Use gzip or brotli to compress resources.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/anncwb/vite-plugin-compression/tree/master/#readme",
   "dependencies": {
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.1",
     "debug": "^4.3.2",
     "fs-extra": "^9.1.0"
   },
@@ -43,14 +43,14 @@
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/debug": "^4.1.5",
-    "@types/fs-extra": "^9.0.10",
-    "@types/node": "^14.14.37",
+    "@types/fs-extra": "^9.0.11",
+    "@types/node": "^14.14.44",
     "conventional-changelog-cli": "^2.1.1",
     "ini": "^2.0.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "tsup": "^4.8.21",
-    "typescript": "^4.2.3",
-    "vite": "^2.1.5"
+    "tsup": "^4.10.1",
+    "typescript": "^4.2.4",
+    "vite": "^2.2.4"
   }
 }
