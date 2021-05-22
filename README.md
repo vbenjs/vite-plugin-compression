@@ -83,7 +83,7 @@ MIT
 
 [vite-plugin-compress](https://github.com/alloc/vite-plugin-compress)
 
-[npm-img]: https://img.shields.io/npm/v/vite-plugin-style-import.svg
-[npm-url]: https://npmjs.com/package/vite-plugin-style-import
-[node-img]: https://img.shields.io/node/v/vite-plugin-style-import.svg
+[npm-img]: https://img.shields.io/npm/v/vite-plugin-compression.svg
+[npm-url]: https://npmjs.com/package/vite-plugin-compression
+[node-img]: https://img.shields.io/node/v/vite-plugin-compression.svg
 [node-url]: https://nodejs.org/en/about/releases/
