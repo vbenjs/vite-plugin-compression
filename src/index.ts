@@ -52,7 +52,9 @@ export default (options: VitePluginCompression = {}): Plugin => {
       let files = readAllFile(outputPath) || [];
       debug('files:', files);
 
-      if (!files.length) return;
+      if (!files.length) {
+        return;
+      }
 
       files = filterFiles(files, filter);
 

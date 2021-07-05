@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/anncwb/vite-plugin-compression/compare/v0.2.4...v0.3.0) (2021-07-05)
+
+
+### Features
+
+* automatically generate ext ([ccf8635](https://github.com/anncwb/vite-plugin-compression/commit/ccf8635807f03b1d46b6f090b4c533274ef77b15))
+
+
+
 ## [0.2.5](https://github.com/anncwb/vite-plugin-compression/compare/v0.2.4...v0.2.5) (2021-05-09)
 
 
