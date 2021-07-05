@@ -47,7 +47,7 @@ export default () => {
 | disable | `boolean` | `false` | 是否禁用 |
 | threshold | `number` | - | 体积大于 threshold 才会被压缩,单位 b |
 | algorithm | `string` | `gzip` | 压缩算法,可选 [ 'gzip' , 'brotliCompress' ,'deflate' , 'deflateRaw'] |
-| ext | `string` | `.gz` | 生成的压缩包后缀 |
+| ext | `string` | `auto` | 生成的压缩包后缀,如果是 gzip/或者 brotli，可以不传 |
 | compressionOptions | `object` | - | 对应的压缩算法的参数 |
 | deleteOriginFile | `boolean` | - | 压缩后是否删除源文件 |
 

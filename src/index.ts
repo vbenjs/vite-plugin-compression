@@ -1,5 +1,5 @@
 import type { Plugin, ResolvedConfig } from 'vite';
-import type { CompressionOptions, VitePluginCompression } from './types';
+import type { CompressionOptions, VitePluginCompression, Algorithm } from './types';
 import path from 'path';
 import { normalizePath } from 'vite';
 import { readAllFile, isRegExp, isFunction } from './utils';
@@ -77,7 +77,7 @@ export default (options: VitePluginCompression = {}): Plugin => {
         }
         const size = content.byteLength;
 
-        const cname = getOutputFileName(filePath, ext);
+        const cname = getOutputFileName(filePath, getDefaultExt(algorithm, ext));
         compressMap.set(filePath, {
           size: size / 1024,
           oldSize: oldSize / 1024,
@@ -145,17 +145,23 @@ function getCompressionOptions(
   return { ...defaultOptions[algorithm], ...compressionOptions } as CompressionOptions;
 }
 
+function getDefaultExt(algorithm: Algorithm, def: string) {
+  if (algorithm === 'gzip') {
+    return '.gz';
+  }
+  if (algorithm === 'brotliCompress') {
+    return '.br';
+  }
+  return def;
+}
+
 /**
  * Compression core method
  * @param content
  * @param algorithm
  * @param options
  */
-function compress(
-  content: Buffer,
-  algorithm: 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw',
-  options: CompressionOptions = {}
-) {
+function compress(content: Buffer, algorithm: Algorithm, options: CompressionOptions = {}) {
   return new Promise<Buffer>((resolve, reject) => {
     // @ts-ignore
     zlib[algorithm](content, options, (err, result) => (err ? reject(err) : resolve(result)));

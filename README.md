@@ -47,7 +47,7 @@ export default () => {
 | disable | `boolean` | `false` | Whether to disable |
 | threshold | `number` | `1025` | It will be compressed if the volume is larger than threshold, the unit is b |
 | algorithm | `string` | `gzip` | Compression algorithm, optional ['gzip','brotliCompress' ,'deflate','deflateRaw'] |
-| ext | `string` | `.gz` | Suffix of the generated compressed package |
+| ext | `string` | `auto` | Suffix of the generated compressed package，If it is gzip/or brotli, you don’t need to upload it |
 | compressionOptions | `object` | - | The parameters of the corresponding compression algorithm |
 | deleteOriginFile | `boolean` | - | Whether to delete source files after compression |
 
