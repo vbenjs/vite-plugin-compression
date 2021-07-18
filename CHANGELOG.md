@@ -1,3 +1,12 @@
+## [0.2.6](https://github.com/anncwb/vite-plugin-compression/compare/v0.2.4...v0.2.6) (2021-07-18)
+
+
+### Bug Fixes
+
+* type error,fix [#5](https://github.com/anncwb/vite-plugin-compression/issues/5) ([cd6c313](https://github.com/anncwb/vite-plugin-compression/commit/cd6c313f63b4a8147d518e17c887049cdae6f1b7))
+
+
+
 ## [0.2.5](https://github.com/anncwb/vite-plugin-compression/compare/v0.2.4...v0.2.5) (2021-05-09)
 
 
