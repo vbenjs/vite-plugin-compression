@@ -14,7 +14,7 @@ const extRE = /\.(js|mjs|json|css|html)$/i;
 
 const mtimeCache = new Map<string, number>();
 
-export default (options: VitePluginCompression = {}): Plugin => {
+const exportFn = (options: VitePluginCompression = {}): Plugin => {
   let outputPath: string;
   let config: ResolvedConfig;
 
@@ -206,3 +206,6 @@ function handleOutputLogger(
   });
   config.logger.info('\n');
 }
+
+module.exports = exportFn;
+export default exportFn;
