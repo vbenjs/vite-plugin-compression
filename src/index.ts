@@ -45,7 +45,7 @@ const exportFn = (options: VitePluginCompression = {}): Plugin => {
     enforce: 'post',
     configResolved(resolvedConfig) {
       config = resolvedConfig;
-      outputPath = path.join(config.root, config.build.outDir);
+      outputPath = path.isAbsolute(config.build.outDir)?config.build.outDir:path.join(config.root, config.build.outDir);
       debug('resolvedConfig:', resolvedConfig);
     },
     async writeBundle() {
