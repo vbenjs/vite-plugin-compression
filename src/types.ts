@@ -46,4 +46,9 @@ export interface VitePluginCompression {
    * @default: false
    */
   deleteOriginFile?: boolean;
+
+  /**
+   * success callback after completed
+   */
+  success?: Function;
 }

@@ -31,6 +31,7 @@ const exportFn = (options: VitePluginCompression = {}): Plugin => {
     threshold = 1025,
     compressionOptions = {},
     deleteOriginFile = false,
+    success = () => {}
   } = options;
 
   if (disable) {
@@ -93,6 +94,7 @@ const exportFn = (options: VitePluginCompression = {}): Plugin => {
       Promise.all(handles).then(() => {
         if (verbose) {
           handleOutputLogger(config, compressMap, algorithm);
+          success()
         }
       });
     },
