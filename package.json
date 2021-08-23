@@ -44,13 +44,13 @@
     "@types/chalk": "^2.2.0",
     "@types/debug": "^4.1.7",
     "@types/fs-extra": "^9.0.12",
-    "@types/node": "^16.4.9",
+    "@types/node": "^16.7.1",
     "conventional-changelog-cli": "^2.1.1",
     "ini": "^2.0.0",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
-    "tsup": "^4.12.5",
+    "tsup": "^4.14.0",
     "typescript": "^4.3.5",
-    "vite": "^2.4.4"
+    "vite": "^2.5.0"
   }
 }
