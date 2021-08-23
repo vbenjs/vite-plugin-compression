@@ -50,5 +50,5 @@ export interface VitePluginCompression {
   /**
    * success callback after completed
    */
-  success?: Function;
+  success?: () => void;
 }
