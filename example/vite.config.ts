@@ -1,9 +1,8 @@
-import { UserConfigExport } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import jsx from '@vitejs/plugin-vue-jsx';
 import viteCompression from '../dist/index';
 
-export default (): UserConfigExport => {
+export default () => {
   return {
     build: {
       assetsInlineLimit: 0,
