@@ -1,3 +1,7 @@
+# [0.4.0](https://github.com/anncwb/vite-plugin-compression/compare/v0.3.6...v0.4.0) (2021-12-28)
+
+
+
 ## [0.3.5](https://github.com/anncwb/vite-plugin-compression/compare/v0.2.4...v0.3.5) (2021-11-25)
 
 
