@@ -26,13 +26,22 @@ const exportFn = (options: VitePluginCompression = {}): Plugin => {
     disable = false,
     filter = extRE,
     verbose = true,
-    algorithm = 'gzip',
-    ext = '.gz',
+
     threshold = 1025,
     compressionOptions = {},
     deleteOriginFile = false,
-    success = () => {}
+    success = () => {},
   } = options;
+
+  let { algorithm = 'gzip', ext = '' } = options;
+
+  if (algorithm === 'gzip' && !ext) {
+    ext = '.gz';
+  }
+
+  if (algorithm === 'brotliCompress' && !ext) {
+    ext = '.br';
+  }
 
   if (disable) {
     return emptyPlugin;
@@ -94,7 +103,7 @@ const exportFn = (options: VitePluginCompression = {}): Plugin => {
       Promise.all(handles).then(() => {
         if (verbose) {
           handleOutputLogger(config, compressMap, algorithm);
-          success()
+          success();
         }
       });
     },
@@ -193,15 +202,12 @@ function handleOutputLogger(
   compressMap.forEach((value, name) => {
     let { size, oldSize, cname } = value;
 
-    const rName = normalizePath(cname).replace(
-      normalizePath(`${config.root}/${config.build.outDir}/`),
-      ''
-    );
+    const rName = normalizePath(cname).replace(normalizePath(`${config.build.outDir}/`), '');
 
     const sizeStr = `${oldSize.toFixed(2)}kb / ${algorithm}: ${size.toFixed(2)}kb`;
 
     config.logger.info(
-      chalk.dim(config.build.outDir + '/') +
+      chalk.dim(path.basename(config.build.outDir) + '/') +
         chalk.blueBright(rName) +
         ' '.repeat(2 + maxKeyLength - name.length) +
         ' ' +
