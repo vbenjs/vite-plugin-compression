@@ -8,21 +8,34 @@ on:
 jobs:
   publish-npm:
     if: "contains(github.event.head_commit.message, 'release')"
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+      fail-fast: false
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: use Node.js 14
-        uses: actions/setup-node@v1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
         with:
+          version: 6.28.0
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
-          node-version: 14
+          cache: 'pnpm'
 
-      - name: npm install and publish
-        run: |
-          npm install
-          npm publish
+      - name: Install Dependencies
+        run: pnpm install
 
+      - name: Publish to NPM
+        run: pnpm -r publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
