@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-compression-monorepo",
   "private": true,
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Use gzip or brotli to compress resources.",
   "license": "MIT",
   "author": "Vben",

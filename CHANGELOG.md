@@ -1,3 +1,10 @@
+## [0.5.1](https://github.com/anncwb/vite-plugin-compression/compare/v0.5.0...v0.5.1) (2022-01-29)
+
+### Bug Fixes
+
+- build error,close [#13](https://github.com/anncwb/vite-plugin-compression/issues/13) ([dbc3247](https://github.com/anncwb/vite-plugin-compression/commit/dbc32478e7f03ee56b73185dcb4c76fad712bb55))
+- return a promise to have it awaited ([24b77ae](https://github.com/anncwb/vite-plugin-compression/commit/24b77ae1917e196b9602ed268330cf5a86b09c55))
+
 # [0.5.0](https://github.com/anncwb/vite-plugin-compression/compare/v0.3.6...v0.5.0) (2022-01-28)
 
 # [0.4.0](https://github.com/anncwb/vite-plugin-compression/compare/v0.3.6...v0.4.0) (2021-12-28)
