@@ -6,9 +6,9 @@ import { readAllFile, isRegExp, isFunction } from './utils'
 import fs from 'fs-extra'
 import chalk from 'chalk'
 import zlib from 'zlib'
-import { debug as Debug } from 'debug'
+import Debug from 'debug'
 
-const debug = Debug('vite-plugin-compression')
+const debug = Debug.debug('vite-plugin-compression')
 
 const extRE = /\.(js|mjs|json|css|html)$/i
 
