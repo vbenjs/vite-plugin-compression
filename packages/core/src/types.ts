@@ -1,4 +1,4 @@
-import type { ZlibOptions, BrotliOptions } from 'zlib'
+import type { ZlibOptions, BrotliOptions } from 'node:zlib'
 
 export type Algorithm = 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw'
 

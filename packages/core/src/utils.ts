@@ -1,5 +1,6 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
+
 export const isFunction = (arg: unknown): arg is (...args: any[]) => any =>
   typeof arg === 'function'
 
