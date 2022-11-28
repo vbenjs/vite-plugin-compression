@@ -1,11 +1,11 @@
 import type { Plugin, ResolvedConfig } from 'vite'
-import type { CompressionOptions, VitePluginCompression } from './types'
-import path from 'path'
+import type { Algorithm, CompressionOptions, VitePluginCompression } from './types'
+import path from 'node:path'
+import zlib from 'node:zlib'
 import { normalizePath } from 'vite'
 import { readAllFile, isRegExp, isFunction } from './utils'
 import fs from 'fs-extra'
 import chalk from 'chalk'
-import zlib from 'zlib'
 import Debug from 'debug'
 
 const debug = Debug.debug('vite-plugin-compression')
@@ -180,7 +180,7 @@ function getCompressionOptions(
  */
 function compress(
   content: Buffer,
-  algorithm: 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw',
+  algorithm: Algorithm,
   options: CompressionOptions = {},
 ) {
   return new Promise<Buffer>((resolve, reject) => {
