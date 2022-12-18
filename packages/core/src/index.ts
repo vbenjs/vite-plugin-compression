@@ -208,7 +208,7 @@ function handleOutputLogger(
   algorithm: string,
   ext: string,
 ) {
-  config.logger.info('\n')
+  config.logger.info('')
   config.logger.info(
     `${chalk.cyan('✨ [vite-plugin-compression]:algorithm=' + algorithm)}` +
       ` - compressed file successfully: `,
@@ -310,6 +310,4 @@ function handleOutputLogger(
       chalk.green(totalPercentageString),
     ].join(''),
   )
-
-  config.logger.info('\n')
 }
