@@ -2,7 +2,7 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import type { CompressionOptions, VitePluginCompression } from './types'
 import path from 'path'
 import { normalizePath } from 'vite'
-import { readAllFile, isRegExp, isFunction } from './utils'
+import { readAllFile, isRegExp, isFunction, escapeRegExp } from './utils'
 import fs from 'fs-extra'
 import chalk from 'chalk'
 import zlib from 'zlib'
@@ -99,9 +99,9 @@ export default function (options: VitePluginCompression = {}): Plugin {
 
         const cname = getOutputFileName(filePath, ext)
         compressMap.set(filePath, {
-          size: size / 1024,
-          oldSize: oldSize / 1024,
-          cname: cname,
+          size,
+          oldSize,
+          cname,
         })
         await fs.writeFile(cname, content)
 
@@ -110,7 +110,7 @@ export default function (options: VitePluginCompression = {}): Plugin {
 
       return Promise.all(handles).then(() => {
         if (verbose) {
-          handleOutputLogger(config, compressMap, algorithm)
+          handleOutputLogger(config, compressMap, algorithm, ext)
           success()
         }
       })
@@ -206,34 +206,108 @@ function handleOutputLogger(
   config: ResolvedConfig,
   compressMap: Map<string, { size: number; oldSize: number; cname: string }>,
   algorithm: string,
+  ext: string,
 ) {
+  config.logger.info('')
   config.logger.info(
-    `\n${chalk.cyan('✨ [vite-plugin-compression]:algorithm=' + algorithm)}` +
+    `${chalk.cyan('✨ [vite-plugin-compression]:algorithm=' + algorithm)}` +
       ` - compressed file successfully: `,
   )
 
-  const keyLengths = Array.from(compressMap.keys(), (name) => name.length)
+  // Choose display format:
+  // 1000 = kilobyte (kB)
+  // 1024 = kibibyte (KiB)
+  const bytesDivider = 1000
+  const sizeUnit = bytesDivider === 1000 ? 'kB' : 'KiB'
 
-  const maxKeyLength = Math.max(...keyLengths)
-  compressMap.forEach((value, name) => {
-    const { size, oldSize, cname } = value
+  const maxLengths = {
+    filename: 0,
+    oldSize: 0,
+    newSize: 0,
+    percentage: 0,
+  }
 
-    const rName = normalizePath(cname).replace(
-      normalizePath(`${config.build.outDir}/`),
-      '',
-    )
+  let totalOldSize = 0
+  let totalNewSize = 0
 
-    const sizeStr = `${oldSize.toFixed(2)}kb / ${algorithm}: ${size.toFixed(
-      2,
-    )}kb`
+  const outputDirRE = new RegExp(
+    `^${escapeRegExp(normalizePath(config.root + '/'))}`,
+  )
+  const extRE = new RegExp(`${escapeRegExp(ext)}$`)
+
+  const compressMapArray = Array.from(compressMap.entries()).map(
+    ([filepath, { size, oldSize, cname }]) => {
+      const newItem = {
+        filename: normalizePath(cname).replace(outputDirRE, ''),
+        oldSize: `${(oldSize / bytesDivider).toFixed(2)} ${sizeUnit}`,
+        newSize: `${(size / bytesDivider).toFixed(2)} ${sizeUnit}`,
+        percentage: `${((100 * size) / oldSize).toFixed(2)} %`,
+      }
+
+      totalOldSize += oldSize
+      totalNewSize += size
+
+      maxLengths.filename = Math.max(
+        maxLengths.filename,
+        newItem.filename.length,
+      )
+      maxLengths.oldSize = Math.max(maxLengths.oldSize, newItem.oldSize.length)
+      maxLengths.newSize = Math.max(maxLengths.newSize, newItem.newSize.length)
+      maxLengths.percentage = Math.max(
+        maxLengths.percentage,
+        newItem.percentage.length,
+      )
+
+      return newItem
+    },
+  )
+
+  const totalOldSizeString = `${(totalOldSize / bytesDivider).toFixed(
+    2,
+  )} ${sizeUnit}`
+  const totalNewSizeString = `${(totalNewSize / bytesDivider).toFixed(
+    2,
+  )} ${sizeUnit}`
+  const totalPercentageString = `${(
+    (100 * totalNewSize) /
+    totalOldSize
+  ).toFixed(2)} %`
+
+  compressMapArray.forEach(({ filename, oldSize, newSize, percentage }) => {
+    const basename = path.basename(filename)
 
     config.logger.info(
-      chalk.dim(path.basename(config.build.outDir) + '/') +
-        chalk.blueBright(rName) +
-        ' '.repeat(2 + maxKeyLength - name.length) +
-        ' ' +
-        chalk.dim(sizeStr),
+      [
+        chalk.dim(filename.replace(basename, '')),
+        chalk.blueBright(basename.replace(extRE, '')),
+        chalk.dim(
+          [
+            ext,
+            ' '.repeat(2 + maxLengths.filename - filename.length),
+            ' '.repeat(totalOldSizeString.length - oldSize.length),
+            oldSize,
+            ` │ ${algorithm}: `,
+            ' '.repeat(totalNewSizeString.length - newSize.length),
+            newSize,
+            ` │ `,
+            ' '.repeat(totalPercentageString.length - percentage.length),
+            percentage,
+          ].join(''),
+        ),
+      ].join(''),
     )
   })
-  config.logger.info('\n')
+
+  config.logger.info(
+    [
+      'Total',
+      ' '.repeat(2 + maxLengths.filename - 5),
+      totalOldSizeString,
+      chalk.dim(' │ '),
+      ' '.repeat(algorithm.length + 2),
+      totalNewSizeString,
+      chalk.dim(' │ '),
+      chalk.green(totalPercentageString),
+    ].join(''),
+  )
 }
