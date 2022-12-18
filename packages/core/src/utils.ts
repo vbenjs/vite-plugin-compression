@@ -6,6 +6,9 @@ export const isFunction = (arg: unknown): arg is (...args: any[]) => any =>
 export const isRegExp = (arg: unknown): arg is RegExp =>
   Object.prototype.toString.call(arg) === '[object RegExp]'
 
+export const escapeRegExp = (text: string): string =>
+  text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+
 /*
  * Read all files in the specified folder, filter through regular rules, and return file path array
  * @param root Specify the folder path
