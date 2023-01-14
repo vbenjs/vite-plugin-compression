@@ -24,14 +24,8 @@ export function readAllFile(root: string, reg?: RegExp) {
           const t = readAllFile(path.join(root, '/', file), reg)
           resultArr = resultArr.concat(t)
         })
-      } else {
-        if (reg !== undefined) {
-          if (isFunction(reg.test) && reg.test(root)) {
-            resultArr.push(root)
-          }
-        } else {
-          resultArr.push(root)
-        }
+      } else if (reg === undefined || (isFunction(reg.test) && reg.test(root))) {
+        resultArr.push(root)
       }
     }
   } catch (error) {
