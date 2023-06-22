@@ -86,16 +86,15 @@ export default function (options: VitePluginCompression = {}): Plugin {
 
         let content = await fs.readFile(filePath)
 
-        if (deleteOriginFile) {
-          fs.remove(filePath)
-        }
-
         try {
           content = await compress(content, algorithm, compressOptions)
         } catch (error) {
           config.logger.error('compress error:' + filePath)
         }
         const size = content.byteLength
+
+        if (size >= oldSize)
+          return
 
         const cname = getOutputFileName(filePath, ext)
         compressMap.set(filePath, {
@@ -104,6 +103,10 @@ export default function (options: VitePluginCompression = {}): Plugin {
           cname: cname,
         })
         await fs.writeFile(cname, content)
+
+        if (deleteOriginFile) {
+          fs.remove(filePath)
+        }
 
         mtimeCache.set(filePath, Date.now())
       })
